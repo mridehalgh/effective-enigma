@@ -1,0 +1,38 @@
+spring:
+  cloud:
+    vault:
+      enabled: true
+      uri: http://127.0.0.1:8200
+      connection-timeout: 5000
+      read-timeout: 15000
+      fail-fast: true
+      config:
+        order: -10
+# Can bypass the layer all together
+#      authentication: AWS_IAM
+#      aws-iam:
+#        role: vault-lambda-role
+#        aws-path: aws
+#        endpoint-uri: https://sts.eu-west-1.amazonaws.com
+      kv:
+        enabled: true
+        backend: database
+        profile-separator: '/'
+        application-name: creds/lambda-function
+      authentication: none
+  config:
+    import: vault://
+# Value from Vault
+topSecretValue: ${demoKey1234}
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          client:
+            RestTemplate: DEBUG
+      apache:
+        http: DEBUG
+    root: DEBUG
+

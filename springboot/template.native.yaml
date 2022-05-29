@@ -15,6 +15,18 @@ Globals:
     Environment:
       Variables:
         PRODUCT_TABLE_NAME: !Ref ProductsTable
+        VLE_VAULT_ADDR: https://xxx
+        VAULT_AUTH_PROVIDER: aws
+        VAULT_SECRET_PATH_DB: database/creds/lambda-function
+        VAULT_LOG_LEVEL: debug
+        AWS_STS_REGIONAL_ENDPOINTS: regional
+        VAULT_SECRET_FILE_DB: /tmp/vault_secret.json
+        VAULT_SKIP_VERIFY: true
+        VAULT_STS_ENDPOINT_REGION: eu-west-1
+        VAULT_DEFAULT_CACHE_TTL: 15m
+        VAULT_DEFAULT_CACHE_ENABLED: true
+    Layers:
+      - arn:aws:lambda:eu-west-1:634166935893:layer:vault-lambda-extension:13
 
 Resources:
   MyApi:
@@ -46,6 +58,7 @@ Resources:
       Environment:
         Variables:
           DEFAULT_HANDLER: getAllProducts
+          VAULT_AUTH_ROLE: sam-app-GetProductsFunctionRole-6IWQETJTQC86
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref ProductsTable

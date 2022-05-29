@@ -116,3 +116,20 @@ Example warm start trace for GraalVM version:
 <p align="center">
   <img src="../imgs/springboot/springboot-native-warm-trace.JPG" alt="GraalVM Version Warm Trace Example"/>
 </p>
+
+----
+
+Error:
+
+```aidl
+[AppDynamics Tracer] [ERROR]: ERROR registering tracer => java.lang.NoClassDefFoundError: javax/xml/bind/DatatypeConverter
+```
+
+```xml
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.0</version>
+</dependency>
+
+```
